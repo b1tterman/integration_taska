@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Test xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" description="Обработка REST-заглушкой с SSL-аутентификацией POST-запроса с XML-сообщением о несуществующем клиенте." name="Block 11 Test Case 1" xsi:noNamespaceSchemaLocation="http://ctt.cinimex.ru/testSettings.xsd">
+
+
+<GetTemplate variable="varName1" path="/Templates/block11msg.xml"/>
+<ChangeTemplate name="varName1">
+	<ReplaceValue value="666" mnemonic="Req_ClientId"/>
+</ChangeTemplate>
+
+<RunStub stubName="Block11stub"/>
+
+<RESTSendPost objName="Block11ssl" paramCharset="Windows-1251" request="varName1" response="varName2" responseCode="varName3"> 
+    <parameters> 
+        <param name="ClientId" value="666"/>                
+    </parameters> 
+    <requestHeaders> 
+        <header name="Content-Type" value="text/xml; charset=Windows-1251"/>      
+    </requestHeaders> 
+    <responseHeaders> 
+        <header name="Content-Type" variable="value"/> 
+    </responseHeaders> 
+</RESTSendPost> 
+
+<StopStub stubName="Block11stub"/>
+
+
+
+</Test>

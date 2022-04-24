@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<getBankClient>
+    <BankClient>
+        <ClientId>01234567892</ClientId>
+    </BankClient>
+</getBankClient>

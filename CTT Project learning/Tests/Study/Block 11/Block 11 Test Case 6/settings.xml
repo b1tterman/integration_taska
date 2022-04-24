@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Test xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" description="Обработка REST-заглушкой с SSL-аутентификацией POST-запроса с JSON-сообщением о существующем клиенте." name="Block 11 Test Case 6" xsi:noNamespaceSchemaLocation="http://ctt.cinimex.ru/testSettings.xsd"></Test>
