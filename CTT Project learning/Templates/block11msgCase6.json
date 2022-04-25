@@ -1,0 +1,10 @@
+{
+    "BankClients":[
+        {
+            "ClientId":15,
+            "ClientName":"Петров",
+            "Currency":"USD",
+            "CurrencyCode":812
+        }
+    ]
+}

@@ -1,1 +1,1 @@
-Req_ClientId = /*[local-name()='getBankClient']/*[local-name()='BankClient']/*[local-name()='ClientId']
+Req_ClientId = /*[local-name()='getBankClient']/*[local-name()='BankClient']/*[local-name()='ClientId']/text()

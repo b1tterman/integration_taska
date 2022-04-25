@@ -1,7 +1,7 @@
 {
-    "getBankClient" : {
+     "getBankClient" : {
         "BankClient" : {
-            "ClientId" : "01234567892"
+           "ClientId" : "01234567892"
         }
-    }
-}    
+     }
+  }  
