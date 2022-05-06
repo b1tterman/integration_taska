@@ -10,15 +10,20 @@
   <PutVariable name="BrokerName" value="BRKTESTERS1"/>
   <PutVariable name="BrokerQueueManager" value="QMTESTERS1"/>
   <PutVariable name="BrokerHTTPConnectorPort" value="8017"/>
-  <PutVariable name="DatabaseUsername" value="DBUSER_TESTERS1"/>
-  <PutVariable name="DatabasePassword" value="DBUSER_TESTERS1"/>
-  <PutVariable name="DatabaseHost" value="Oracle"/> 
-  <PutVariable name="DatabasePort" value="1521"/>
-  <PutVariable name="DatabaseSID" value="sprdb"/>
+  <PutVariable name="DatabaseUsername" value="root"/>
+  <PutVariable name="DatabasePassword" value="root"/>
+  <PutVariable name="DatabaseHost" value="192.168.14.73"/> 
+  <PutVariable name="DatabasePort" value="3306"/>
+  <PutVariable name="DatabaseSID" value="task8_db"/>
+	<Libraries> 
+    <path>Lib/mysql-connector-java-8.0.29.jar</path> 
+	</Libraries> 
+
 	
 	<Resources>  
 		
 		<Stub confFile="Stubs\Block 11\Block 11.xml" objName="Block11stub"/>
+		<Stub confFile="Stubs\Block 12\Block 12.xml" objName="Block12stub"/>
 		
   		<Security objName="SSL" sslKeyStore="Keys\keystore.jks" sslKeyStorePassword="qwerty123"
 		sslTrustStore="Keys\truststore.jks" sslTrustStorePassword="qwerty123" 
@@ -26,6 +31,12 @@
     
   		<RESTUrl objName="Block11ssl" url="https://localhost:9064" securityObjName="SSL"/>
   		<RESTUrl objName="Block11" url="http://localhost:9065"/>
+  		
+  		<RESTUrl objName="Block12ssl" url="https://localhost:9064" securityObjName="SSL"/>
+  		<RESTUrl objName="Block12" url="http://localhost:9065"/>
+  		
+  		<Database type="mysql" host="#DatabaseHost#" port="#DatabasePort#" sid="#DatabaseSID#" userName="#DatabaseUsername#" userPass="#DatabasePassword#" objName="Block12base"/>
+  		
     </Resources>
 	
 <LoadXpath path="Mnemonics/Xpath/*.txt" withSubdir="false"/>

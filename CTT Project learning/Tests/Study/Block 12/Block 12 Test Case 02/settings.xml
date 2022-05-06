@@ -2,7 +2,7 @@
 
 <Test xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 description="Обработка REST-заглушкой без SSL-аутентификации POST-запроса с XML-сообщением о существующем клиенте." 
-name="Block 11 Test Case 2" xsi:noNamespaceSchemaLocation="http://ctt.cinimex.ru/testSettings.xsd">
+name="Block 12 Test Case 2" xsi:noNamespaceSchemaLocation="http://ctt.cinimex.ru/testSettings.xsd">
 
 
 <Log>Берем шаблон запроса и меняем id клиента</Log>
@@ -14,11 +14,11 @@ name="Block 11 Test Case 2" xsi:noNamespaceSchemaLocation="http://ctt.cinimex.ru
 
 
 <Log>Запускаем заглушку</Log>
-<RunStub stubName="Block11stub"/>
+<RunStub stubName="Block12stub"/>
 
 
 <Log>Отправляем запрос в заглушку по HTTP, попутно сохраняя ответ и код</Log>
-<RESTSendPost objName="Block11" paramCharset="Windows-1251" request="request" response="response" responseCode="resp_code"> 
+<RESTSendPost objName="Block12" paramCharset="Windows-1251" request="request" response="response" responseCode="resp_code"> 
     <requestHeaders> 
         <header name="Content-Type" value="text/xml; charset=Windows-1251"/>      
     </requestHeaders>   
@@ -29,7 +29,7 @@ name="Block 11 Test Case 2" xsi:noNamespaceSchemaLocation="http://ctt.cinimex.ru
 
 
 <Log>Останавливаем заглушку</Log>
-<StopStub stubName="Block11stub"/>
+<StopStub stubName="Block12stub"/>
 
 
 <Log>Сравниваем полученный код ответа с ожидаемым</Log>
@@ -48,5 +48,5 @@ name="Block 11 Test Case 2" xsi:noNamespaceSchemaLocation="http://ctt.cinimex.ru
 	<actual variable="response"/>
     <expected variable="expected_msg"/>
 </AssertXmlEqual>
-	    
+
 </Test>

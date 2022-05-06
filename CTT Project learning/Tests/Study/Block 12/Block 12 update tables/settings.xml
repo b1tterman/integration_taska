@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Test xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" description="Заполняет (обновляет) данные в таблицах" name="Block 12 update tables" xsi:noNamespaceSchemaLocation="http://ctt.cinimex.ru/testSettings.xsd">
+
+	<SQLScript ignoreStringDivide="false" path="Scripts/block12_update_table.sql"> 
+		    <Database objName="Block12base"/> 
+	</SQLScript> 
+
+
+</Test>
