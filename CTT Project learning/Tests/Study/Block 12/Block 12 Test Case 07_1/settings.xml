@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <Test xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-description="Обработка REST-заглушкой с SSL-аутентификацией GET-запроса о существующем клиенте." 
-name="Block 12 Test Case 7" xsi:noNamespaceSchemaLocation="http://ctt.cinimex.ru/testSettings.xsd">
+description="Обработка REST-заглушкой с SSL-аутентификацией GET-запроса о существующем клиенте. Ответ XML." 
+name="Block 12 Test Case 7_1" xsi:noNamespaceSchemaLocation="http://ctt.cinimex.ru/testSettings.xsd">
 
 
 <Log>Запускаем заглушку</Log>
@@ -16,7 +16,7 @@ name="Block 12 Test Case 7" xsi:noNamespaceSchemaLocation="http://ctt.cinimex.ru
 		<param name="ClientId" value="8"/> 
 	</parameters>
 	<requestHeaders>
-		<header name="Content-Type" value="text/json; charset=Windows-1251"/> 
+		<header name="Content-Type" value="text/xml; charset=Windows-1251"/> 
 	</requestHeaders>
 	<responseHeaders>
 		<header name="Content-Type" variable="header"/>
@@ -35,12 +35,23 @@ name="Block 12 Test Case 7" xsi:noNamespaceSchemaLocation="http://ctt.cinimex.ru
 
 <Log>Сравниваем полученный заголовок с ожидаемым</Log>
 <Log>header: #header#</Log>
-<AssertEquals variable="header" value="text/json; charset=Windows-1251"></AssertEquals>
+<AssertEquals variable="header" value="text/xml; charset=Windows-1251"></AssertEquals>
 
+
+<Log>Подставляем необходимые значения в шаблон ответа</Log>
+<GetTemplate variable="expected_msg" path="\Templates\block11msgCase2.xml" encoding="Windows-1251"/>
+<ChangeTemplate name="expected_msg">
+	<ReplaceValue value="8" mnemonic="Resp_ClientId"/>
+	<ReplaceValue value="Васильев" mnemonic="Resp_Name"/>
+	<ReplaceValue value="643" mnemonic="Resp_Code"/>
+	<ReplaceValue value="RUB" mnemonic="Resp_Currency"/>
+</ChangeTemplate>
 
 <Log>Сравниваем тело ответа с ожидаемым</Log>
-<GetTemplate variable="expected_msg" type="JSON" path="Templates\block12msgCase7.json"/>
-<AssertJsonEqual expected="expected_msg" actual="response"></AssertJsonEqual>
+<AssertXmlEqual>
+	<actual variable="response"/>
+    <expected variable="expected_msg"/>
+</AssertXmlEqual>
 
 
 </Test>

@@ -1,3 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<Test xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" description="" name="Block 12 Test Case 8" xsi:noNamespaceSchemaLocation="http://ctt.cinimex.ru/testSettings.xsd"></Test>
+<Test xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+description="Обработка REST-заглушкой с SSL-аутентификацией GET-запроса обо всех клиентах." name="Block 12 Test Case 8" 
+xsi:noNamespaceSchemaLocation="http://ctt.cinimex.ru/testSettings.xsd">
+
+<Log>Запускаем заглушку</Log>
+<RunStub stubName="Block12stub"/>
+
+
+<Log>Отправляем запрос в заглушку с SSL, попутно сохраняя ответ и код</Log>
+<RESTSendGet objName="Block12ssl" paramCharset="Windows-1251" resource="/getBankClient" response="response" responseCode="resp_code" >
+
+	<requestHeaders>
+		<header name="Content-Type" value="text/json; charset=Windows-1251"/> 
+	</requestHeaders>
+	<responseHeaders>
+		<header name="Content-Type" variable="value"/>
+	</responseHeaders>
+
+</RESTSendGet>
+
+
+<Log>Останавливаем заглушку</Log>
+<StopStub stubName="Block12stub"/>
+
+
+</Test>

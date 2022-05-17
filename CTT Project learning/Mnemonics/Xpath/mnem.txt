@@ -1,1 +1,9 @@
 Req_ClientId = /*[local-name()='getBankClient']/*[local-name()='BankClient']/*[local-name()='ClientId']/text()
+
+
+Resp_ClientId = /*[local-name()='BankClients']/*[local-name()='BankClient']/*[local-name()='ClientId']
+Resp_Name = /*[local-name()='BankClients']/*[local-name()='BankClient']/*[local-name()='ClientName']
+Resp_Code = /*[local-name()='BankClients']/*[local-name()='BankClient']/*[local-name()='CurrencyCode']
+Resp_Currency = /*[local-name()='BankClients']/*[local-name()='BankClient']/*[local-name()='Currency']
+
+

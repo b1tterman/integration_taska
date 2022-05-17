@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <Test xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-description="Обработка REST-заглушкой с SSL-аутентификацией GET-запроса о существующем клиенте." 
-name="Block 12 Test Case 7" xsi:noNamespaceSchemaLocation="http://ctt.cinimex.ru/testSettings.xsd">
-
+description="Обработка REST-заглушкой с SSL-аутентификацией GET-запроса обо всех клиентах. Ответ XML." 
+name="Block 12 Test Case 8_1" xsi:noNamespaceSchemaLocation="http://ctt.cinimex.ru/testSettings.xsd">
 
 <Log>Запускаем заглушку</Log>
 <RunStub stubName="Block12stub"/>
@@ -11,12 +10,9 @@ name="Block 12 Test Case 7" xsi:noNamespaceSchemaLocation="http://ctt.cinimex.ru
 
 <Log>Отправляем запрос в заглушку с SSL, попутно сохраняя ответ и код</Log>
 <RESTSendGet objName="Block12ssl" paramCharset="Windows-1251" resource="/getBankClient" response="response" responseCode="resp_code" >
-
-	<parameters>
-		<param name="ClientId" value="8"/> 
-	</parameters>
+	
 	<requestHeaders>
-		<header name="Content-Type" value="text/json; charset=Windows-1251"/> 
+		<header name="Content-Type" value="text/xml; charset=Windows-1251"/> 
 	</requestHeaders>
 	<responseHeaders>
 		<header name="Content-Type" variable="header"/>
@@ -28,6 +24,7 @@ name="Block 12 Test Case 7" xsi:noNamespaceSchemaLocation="http://ctt.cinimex.ru
 <Log>Останавливаем заглушку</Log>
 <StopStub stubName="Block12stub"/>
 
+
 <Log>Сравниваем полученный код ответа с ожидаемым</Log>
 <Log>resp code: #resp_code#</Log>
 <AssertEquals variable="resp_code" value="200"></AssertEquals>
@@ -35,12 +32,17 @@ name="Block 12 Test Case 7" xsi:noNamespaceSchemaLocation="http://ctt.cinimex.ru
 
 <Log>Сравниваем полученный заголовок с ожидаемым</Log>
 <Log>header: #header#</Log>
-<AssertEquals variable="header" value="text/json; charset=Windows-1251"></AssertEquals>
+<AssertEquals variable="header" value="text/xml; charset=Windows-1251"></AssertEquals>
+
+
+<Log>Подставляем необходимые значения в шаблон ответа</Log>
+<GetTemplate variable="expected_msg" path="\Templates\block12msg_all.xml" encoding="Windows-1251"/>
 
 
 <Log>Сравниваем тело ответа с ожидаемым</Log>
-<GetTemplate variable="expected_msg" type="JSON" path="Templates\block12msgCase7.json"/>
-<AssertJsonEqual expected="expected_msg" actual="response"></AssertJsonEqual>
-
+<AssertXmlEqual>
+	<actual variable="response"/>
+    <expected variable="expected_msg"/>
+</AssertXmlEqual>
 
 </Test>

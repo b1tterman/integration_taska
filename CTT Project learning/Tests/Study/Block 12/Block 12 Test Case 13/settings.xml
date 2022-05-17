@@ -1,3 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<Test xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" description="" name="Block 12 Test Case 13" xsi:noNamespaceSchemaLocation="http://ctt.cinimex.ru/testSettings.xsd"></Test>
+<Test xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+description="Обработка REST-заглушкой с SSL-аутентификацией PUT-запроса с XML-сообщением о добавлении клиента." 
+name="Block 12 Test Case 13" xsi:noNamespaceSchemaLocation="http://ctt.cinimex.ru/testSettings.xsd">
+
+<Log>Берем шаблон запроса</Log>
+<GetTemplate variable="request" path="/Templates/block12case13.xml" type="XML" encoding="Windows-1251"/>
+
+<Log>Запускаем заглушку</Log>
+<RunStub stubName="Block12stub"/>
+
+<RESTSend operation="PUT" objName="Block12ssl" response="response" responseCode="resp_code" request="request">
+
+	<requestHeaders>
+		<header name="Content-Type" value="text/xml; charset=Windows-1251"/> 
+	</requestHeaders>
+	<responseHeaders>
+		<header name="Content-Type" variable="value"/>
+	</responseHeaders>
+
+</RESTSend>
+
+
+</Test>

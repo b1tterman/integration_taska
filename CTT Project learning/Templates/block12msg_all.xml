@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="Windows-1251"?><BankClients>
+  <BankClient>
+        <ClientId>8</ClientId>
+        <ClientName>Васильев</ClientName>
+        <CurrencyCode>643</CurrencyCode>
+        <Currency>RUB</Currency>
+     </BankClient><BankClient>
+        <ClientId>15</ClientId>
+        <ClientName>Петров</ClientName>
+        <CurrencyCode>812</CurrencyCode>
+        <Currency>USD</Currency>
+     </BankClient><BankClient>
+        <ClientId>20</ClientId>
+        <ClientName>Николаев</ClientName>
+        <CurrencyCode>978</CurrencyCode>
+        <Currency>EUR</Currency>
+     </BankClient><BankClient>
+        <ClientId>21</ClientId>
+        <ClientName>Лошкарёв</ClientName>
+        <CurrencyCode>643</CurrencyCode>
+        <Currency>RUB</Currency>
+     </BankClient></BankClients>
