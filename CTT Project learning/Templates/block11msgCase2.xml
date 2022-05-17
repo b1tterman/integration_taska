@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="Windows-1251"?>  
-  <BankClients>
-     <BankClient>
-        <ClientId>20</ClientId>
-        <ClientName>Николаев</ClientName>
-        <CurrencyCode>978</CurrencyCode>
-        <Currency>EUR</Currency>
-     </BankClient>
-  </BankClients>
