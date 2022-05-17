@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Test xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+description="Обработка REST-заглушкой с SSL-аутентификацией TRACE-запроса." 
+name="Block 12 Test Case 12" xsi:noNamespaceSchemaLocation="http://ctt.cinimex.ru/testSettings.xsd">
+
+<Log>Запускаем заглушку</Log>
+<RunStub stubName="Block12stub"/>
+
+
+<RESTSend operation="TRACE" objName="Block12ssl" responseCode="resp_code">
+	<parameters>
+		<param name="test" value="test"/>
+	</parameters>
+</RESTSend>
+
+<Log>Останавливаем заглушку</Log>
+<StopStub stubName="Block12stub"/>
+
+
+<Log>Сравниваем полученный код ответа с ожидаемым</Log>
+<Log>resp code: #resp_code#</Log>
+<AssertEquals variable="resp_code" value="405"></AssertEquals>
+
+
+</Test>

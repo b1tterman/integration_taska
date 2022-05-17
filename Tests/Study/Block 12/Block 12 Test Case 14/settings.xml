@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Test xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+description="Обработка REST-заглушкой с SSL-аутентификацией PUT-запроса с XML-сообщением о добавлении клиента с отсутствующим в справочнике кодом валюты." 
+name="Block 12 Test Case 14" xsi:noNamespaceSchemaLocation="http://ctt.cinimex.ru/testSettings.xsd">
+
+
+<Log>Берем шаблон запроса и изменяем его</Log>
+<GetTemplate variable="request" path="/Templates/block12put.xml" type="XML" encoding="Windows-1251"/>
+<ChangeTemplate name="request">
+	<ReplaceValue value="Морковкин" mnemonic="Put_ClientName"/>
+	<ReplaceValue value="666" mnemonic="Put_CurrencyCode"/>
+</ChangeTemplate>
+
+<Log>Запускаем заглушку</Log>
+<RunStub stubName="Block12stub"/>
+
+<Log>Отправляем запрос</Log>
+<RESTSend operation="PUT" objName="Block12ssl" response="response" responseCode="resp_code" request="request">
+
+	<requestHeaders>
+		<header name="Content-Type" value="text/xml; charset=Windows-1251"/> 
+	</requestHeaders>
+	<responseHeaders>
+		<header name="Content-Type" variable="header"/>
+	</responseHeaders>
+
+</RESTSend>
+
+
+<Log>Останавливаем заглушку</Log>
+<StopStub stubName="Block12stub"/>
+
+
+<Log>Сравниваем полученный код ответа с ожидаемым</Log>
+<Log>resp code: #resp_code#</Log>
+<AssertEquals variable="resp_code" value="206"></AssertEquals>
+
+
+<Log>Сравниваем полученный заголовок с ожидаемым</Log>
+<Log>header: #header#</Log>
+<AssertEquals variable="header" value="text/xml; charset=Windows-1251"></AssertEquals>
+
+
+
+</Test>

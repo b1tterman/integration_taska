@@ -1,0 +1,5 @@
+ctt.driver=com.mysql.cj.jdbc.Driver
+ctt.url=jdbc:mysql://192.168.14.73:3306/task8_db
+ctt.user=root
+ctt.password=root
+

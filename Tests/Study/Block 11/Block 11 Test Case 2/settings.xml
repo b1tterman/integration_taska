@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Test xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+description="Обработка REST-заглушкой без SSL-аутентификации POST-запроса с XML-сообщением о существующем клиенте." 
+name="Block 11 Test Case 2" xsi:noNamespaceSchemaLocation="http://ctt.cinimex.ru/testSettings.xsd">
+
+
+<Log>Берем шаблон запроса и меняем id клиента</Log>
+<GetTemplate variable="request" path="/Templates/block11msg.xml" type="XML"/>
+
+<ChangeTemplate name="request">
+	<ReplaceValue value="20" mnemonic="Req_ClientId"/>
+</ChangeTemplate>
+
+
+<Log>Запускаем заглушку</Log>
+<RunStub stubName="Block11stub"/>
+
+
+<Log>Отправляем запрос в заглушку по HTTP, попутно сохраняя ответ и код</Log>
+<RESTSendPost objName="Block11" paramCharset="Windows-1251" request="request" response="response" responseCode="resp_code"> 
+    <requestHeaders> 
+        <header name="Content-Type" value="text/xml; charset=Windows-1251"/>      
+    </requestHeaders>   
+     <responseHeaders> 
+        <header name="Content-Type" variable="header"/> 
+    </responseHeaders>  
+</RESTSendPost> 
+
+
+<Log>Останавливаем заглушку</Log>
+<StopStub stubName="Block11stub"/>
+
+
+<Log>Сравниваем полученный код ответа с ожидаемым</Log>
+<Log>resp code: #resp_code#</Log>
+<AssertEquals variable="resp_code" value="200"></AssertEquals>
+
+
+<Log>Сравниваем полученный заголовок с ожидаемым</Log>
+<Log>header: #header#</Log>
+<AssertEquals variable="header" value="text/xml; charset=Windows-1251"></AssertEquals>
+
+
+<Log>Сравниваем тело ответа с ожидаемым</Log>
+<GetTemplate variable="expected_msg" path="\Templates\block11msgCase2.xml" encoding="Windows-1251"/>
+<AssertXmlEqual>
+	<actual variable="response"/>
+    <expected variable="expected_msg"/>
+</AssertXmlEqual>
+	    
+</Test>

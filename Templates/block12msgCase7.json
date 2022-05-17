@@ -1,0 +1,10 @@
+{
+     "BankClients":[
+        {
+           "ClientId":8,
+           "ClientName":"Васильев",
+           "Currency":"RUB",
+           "CurrencyCode":643
+        }
+     ]
+  }
