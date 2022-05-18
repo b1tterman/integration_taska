@@ -2,9 +2,9 @@
      "BankClients":[
         {
            "ClientId":22,
-           "ClientName":"Медведкин",
-           "Currency":"RUB",
-           "CurrencyCode":643
+           "ClientName":"Васечкин",
+           "Currency":"USD",
+           "CurrencyCode":812
         }
      ]
   }

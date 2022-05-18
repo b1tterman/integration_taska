@@ -36,4 +36,15 @@ name="Block 12 Test Case 10" xsi:noNamespaceSchemaLocation="http://ctt.cinimex.r
 <AssertEquals variable="header" value="text/json; charset=Windows-1251"></AssertEquals>
 
 
+<SQLSelect>
+	<Database objName="Block12base"/>
+	<sql variable="clients_after">select count(*) from  dbikchentaev_client where id = 8</sql>
+</SQLSelect>
+<Log>Количество клиентов с id = 8 после удаления: #clients_after#</Log>
+
+
+<Log>Сравниваем количество клиентов с ожидаемым</Log>
+<AssertEquals variable="clients_after" value="0"></AssertEquals>
+
+
 </Test>

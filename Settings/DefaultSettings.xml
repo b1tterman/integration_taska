@@ -4,6 +4,11 @@
 
 
 
+   <GroovyConfiguration objName="groovy"> 
+  	  
+   </GroovyConfiguration> 
+	
+
   <PutVariable name="BrokerHost" value="vm-spr-01.vm.cmx.ru"/>
   <PutVariable name="BrokerPort" value="4401"/>
   <PutVariable name="BrokerChannel" value="SYSTEM.DEF.SVRCONN"/>
@@ -15,6 +20,7 @@
   <PutVariable name="DatabaseHost" value="192.168.14.73"/> 
   <PutVariable name="DatabasePort" value="3306"/>
   <PutVariable name="DatabaseSID" value="task8_db"/>
+  
 	<Libraries> 
     <path>Lib/mysql-connector-java-8.0.29.jar</path> 
 	</Libraries> 
@@ -35,8 +41,8 @@
   		<RESTUrl objName="Block12ssl" url="https://localhost:9064" securityObjName="SSL"/>
   		<RESTUrl objName="Block12" url="http://localhost:9065"/>
   		
-  		<Database type="mysql" host="#DatabaseHost#" port="#DatabasePort#" sid="#DatabaseSID#" userName="#DatabaseUsername#" userPass="#DatabasePassword#" objName="Block12base"/>
-  		
+<!--  		<Database type="mysql" host="#DatabaseHost#" port="#DatabasePort#" sid="#DatabaseSID#"   		userName="#DatabaseUsername#" userPass="#DatabasePassword#" objName="Block12base"/>-->
+  		<Database dbName="task8_db" host="192.168.14.73" objName="Block12base" port="3306" type="mysql"  userName="root" userPass="root"/> 
     </Resources>
 	
 <LoadXpath path="Mnemonics/Xpath/*.txt" withSubdir="false"/>

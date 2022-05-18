@@ -4,6 +4,12 @@
 description="Обработка REST-заглушкой с SSL-аутентификацией PUT-запроса с XML-сообщением о добавлении клиента." 
 name="Block 12 Test Case 13" xsi:noNamespaceSchemaLocation="http://ctt.cinimex.ru/testSettings.xsd">
 
+
+<Log>Очищаем базу после предыдущего теста</Log>
+<SQLScript ignoreStringDivide="false" path="Scripts/block12_update_table.sql"> 
+    <Database objName="Block12base"/> 
+</SQLScript> 
+	
 <Log>Берем шаблон запроса</Log>
 <GetTemplate variable="request" path="/Templates/block12put.xml" type="XML" encoding="Windows-1251"/>
 
@@ -50,6 +56,16 @@ name="Block 12 Test Case 13" xsi:noNamespaceSchemaLocation="http://ctt.cinimex.r
 	<actual variable="response"/>
     <expected variable="expected_msg"/>
 </AssertXmlEqual>
+
+<Wait time="5000"/>
+
+<SQLSelect>
+	<Database objName="Block12base"/>
+	<sql variable="client_name">select name from  dbikchentaev_client where id = 22</sql>
+</SQLSelect>
+
+<Log>Сравниваем имя клиента с ожидаемым</Log>
+<AssertEquals variable="client_name" value="Васечкин"></AssertEquals>
 
 
 </Test>

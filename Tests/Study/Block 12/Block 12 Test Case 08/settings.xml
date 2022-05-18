@@ -15,7 +15,7 @@ xsi:noNamespaceSchemaLocation="http://ctt.cinimex.ru/testSettings.xsd">
 		<header name="Content-Type" value="text/json; charset=Windows-1251"/> 
 	</requestHeaders>
 	<responseHeaders>
-		<header name="Content-Type" variable="value"/>
+		<header name="Content-Type" variable="header"/>
 	</responseHeaders>
 
 </RESTSendGet>
@@ -23,6 +23,38 @@ xsi:noNamespaceSchemaLocation="http://ctt.cinimex.ru/testSettings.xsd">
 
 <Log>Останавливаем заглушку</Log>
 <StopStub stubName="Block12stub"/>
+
+<Log>Сравниваем полученный код ответа с ожидаемым</Log>
+<Log>resp code: #resp_code#</Log>
+<AssertEquals variable="resp_code" value="200"></AssertEquals>
+
+
+<Log>Сравниваем полученный заголовок с ожидаемым</Log>
+<Log>header: #header#</Log>
+<AssertEquals variable="header" value="text/json; charset=Windows-1251"></AssertEquals>
+
+<Log>Считываем количество клиентов в ответе</Log>
+<GroovyInline configurationName="groovy"> 
+	<inputParams>
+	<variable script="response" test="response"/>
+	</inputParams>
+    <outputParams> 
+        <variable script="count" test="count"/> 
+    </outputParams> 
+    <script>
+    
+        import ru.cinimex.stub.utils.JSON;                                     
+        
+        resp = JSON.readJsonValue('#response#', "\$.BankClients");
+        count =  resp.size();
+        log.info("Resp size: " + count);
+        
+    </script> 
+</GroovyInline> 
+<Log>Количество клиентов : #count#</Log> 
+
+<Log>Сравниваем количество клиентов в ответе с ожидаемым</Log>
+<AssertEquals variable="count" value="4"></AssertEquals>
 
 
 </Test>

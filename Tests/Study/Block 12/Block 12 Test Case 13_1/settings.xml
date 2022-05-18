@@ -47,4 +47,14 @@ name="Block 12 Test Case 13_1" xsi:noNamespaceSchemaLocation="http://ctt.cinimex
 <GetTemplate variable="expected_msg" type="JSON" path="Templates\block12case131.json"/>
 <AssertJsonEqual expected="expected_msg" actual="response"></AssertJsonEqual>
 
+<Wait time="5000"/>
+
+<SQLSelect>
+	<Database objName="Block12base"/>
+	<sql variable="client_name">select name from  dbikchentaev_client where id = 22</sql>
+</SQLSelect>
+
+<Log>Сравниваем имя клиента с ожидаемым</Log>
+<AssertEquals variable="client_name" value="Васечкин"></AssertEquals>
+
 </Test>
