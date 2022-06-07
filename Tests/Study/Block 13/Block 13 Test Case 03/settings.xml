@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Test xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+description="Попытка получения JWT токена кривым запросом." 
+name="Block 13 Test Case 03" xsi:noNamespaceSchemaLocation="http://ctt.cinimex.ru/testSettings.xsd">
+
+
+<Log>Берем шаблон и меняем данные для теста</Log>
+<GetTemplate path="Templates/block13jwt_auth.json" type="JSON" variable="jsonString" encoding="Windows-1251"/> 
+<ChangeJsonTemplate name="jsonString">
+	<DeleteElement jsonPath="username"/>
+	<ReplaceValue jsonPath="expired_at" inValue="10" type="Integer"/>
+</ChangeJsonTemplate>
+	
+
+<!--<Log>Запускаем заглушку</Log>-->
+<!--<RunStub stubName="Block13stub"/>-->
+
+
+<Log>Отправляем запрос в заглушку с SSL, попутно сохраняя ответ и код</Log>
+<RESTSend objName="Block13" operation="POST" readTimeout="20000" request="jsonString" response="response" resource="/authenticate" responseCode="resp_code"> 
+    <requestHeaders> 
+        <header name="Content-Type" value="text/json; charset=Windows-1251"/> 
+    </requestHeaders> 
+    <responseHeaders> 
+        <header name="Content-Type" variable="header"/> 
+    </responseHeaders> 
+</RESTSend> 
+
+<!--<StopStub stubName="Block13stub"/>-->
+
+<Log>Сравниваем полученный код ответа с ожидаемым</Log>
+<Log>resp code: #resp_code#</Log>
+<AssertEquals variable="resp_code" value="204"></AssertEquals>
+
+
+</Test>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Test xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+description="Обработка REST-заглушкой POST-запроса о существующем клиенте." 
+name="Block 13 Test Case 08" xsi:noNamespaceSchemaLocation="http://ctt.cinimex.ru/testSettings.xsd">
+
+
+<Log>Берем шаблон и меняем данные для теста</Log>
+<GetTemplate variable="jsonString" path="Templates/block13jwt_auth.json" type="JSON" encoding="Windows-1251"/> 
+<ChangeJsonTemplate name="jsonString">
+	<ReplaceValue jsonPath="username" inValue="Cinimex"/>
+	<ReplaceValue jsonPath="expired_at" inValue="7" type="Integer"/>
+</ChangeJsonTemplate>
+
+<Log>Берем шаблон запроса и меняем id клиента</Log>
+<GetTemplate path="Templates/block11msg.json" type="JSON" variable="jsonString1"/> 
+
+<ChangeJsonTemplate name="jsonString1"> 
+    <ReplaceValue inValue="15" jsonPath="getBankClient.BankClient.ClientId" type="Integer"/>    
+</ChangeJsonTemplate> 
+
+<Log>Запускаем заглушку</Log>
+<RunStub stubName="Block13stub"/>
+
+<SetStubsJVMProperty key="JWT_PAYLOADS" value=""/>
+
+<Log>Отправляем запрос в заглушку с SSL, попутно сохраняя ответ и код</Log>
+<RESTSend objName="Block13" operation="POST" readTimeout="20000" request="jsonString" response="response" resource="/authenticate" responseCode="resp_code"> 
+    <requestHeaders> 
+        <header name="Content-Type" value="text/json; charset=Windows-1251"/> 
+    </requestHeaders> 
+    <responseHeaders> 
+        <header name="Content-Type" variable="header"/> 
+    </responseHeaders> 
+</RESTSend> 
+
+<ConvertString type="StringToJson" inVariable="response" outVariable="stringjson"/>
+<PutVariable name="token" mnemonic="token" variable="stringjson"/>
+
+
+
+<Log>Отправляем запрос в заглушку с SSL, попутно сохраняя ответ и код</Log>
+<RESTSend objName="Block13" operation="POST" readTimeout="20000" request="jsonString1" response="response1" responseCode="resp_code1"> 
+    <requestHeaders> 
+        <header name="Content-Type" value="text/json; charset=Windows-1251"/> 
+        <header name="Authorization" value="Bearer #token#"/>
+    </requestHeaders> 
+    <responseHeaders> 
+        <header name="Content-Type" variable="header1"/> 
+    </responseHeaders> 
+</RESTSend> 
+
+<StopStub stubName="Block13stub"/>
+
+
+<Log>Сравниваем полученное с ожидаемым</Log>
+<Log>resp code: #resp_code1#</Log>
+<AssertEquals variable="resp_code1" value="200"></AssertEquals>
+<AssertEquals variable="header1" value="text/json; charset=Windows-1251"></AssertEquals>
+
+<GetTemplate variable="exp_msg" path="Templates/block11msgCase6.json"/>
+<AssertJsonEqual expected="exp_msg" actual="response1"></AssertJsonEqual>
+
+</Test>

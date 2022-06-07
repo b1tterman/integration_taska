@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Test xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+description="Получение 2-го JWT токена со временем действия по умолчанию (5 секунд)." 
+name="Block 13 Test Case 04" xsi:noNamespaceSchemaLocation="http://ctt.cinimex.ru/testSettings.xsd">
+
+
+<Log>Берем шаблон и меняем данные для теста</Log>
+<GetTemplate path="Templates/block13jwt_auth.json" type="JSON" variable="jsonString" encoding="Windows-1251"/> 
+<ChangeJsonTemplate name="jsonString">
+	<ReplaceValue jsonPath="username" inValue="Cinimex"/>
+	<DeleteElement jsonPath="expired_at"/>
+</ChangeJsonTemplate>
+
+<!--<Log>Запускаем заглушку</Log>-->
+<!--<RunStub stubName="Block13stub"/>-->
+
+
+<Log>Отправляем запрос в заглушку с SSL, попутно сохраняя ответ и код</Log>
+<RESTSend objName="Block13" operation="POST" readTimeout="20000" request="jsonString" response="response" resource="/authenticate" responseCode="resp_code"> 
+    <requestHeaders> 
+        <header name="Content-Type" value="text/json; charset=Windows-1251"/> 
+    </requestHeaders> 
+    <responseHeaders> 
+        <header name="Content-Type" variable="header"/> 
+    </responseHeaders> 
+</RESTSend> 
+
+<StopStub stubName="Block13stub"/>
+
+<ConvertString type="StringToJson" inVariable="response" outVariable="stringjson"/>
+<PutVariable name="token" mnemonic="token" variable="stringjson"/>
+
+<Log>Сравниваем полученный код ответа с ожидаемым</Log>
+<Log>resp code: #resp_code#</Log>
+<AssertEquals variable="resp_code" value="200"></AssertEquals>
+
+<Log>Сравниваем полученный ответ с ожидаемым</Log>
+<GetTemplate variable="exp_resp" path="Templates/block13jwt_resp_auth.json" type="JSON" encoding="Windows-1251"/>
+<ChangeJsonTemplate name="exp_resp">
+	<ReplaceValue inValue="3" jsonPath="id" type="Integer"/>    
+	<ReplaceValue inValue="Cinimex" jsonPath="username"/>    
+	<ReplaceValue inValue="#token#" jsonPath="token"/>    
+	<ReplaceValue inValue="5" jsonPath="expires_in" type="Integer"/>   	
+</ChangeJsonTemplate>
+<Log>expected: #exp_resp#</Log>
+
+<AssertJsonEqual expected="exp_resp" actual="response"></AssertJsonEqual>
+
+
+</Test>

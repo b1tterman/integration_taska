@@ -15,14 +15,10 @@
   <PutVariable name="BrokerName" value="BRKTESTERS1"/>
   <PutVariable name="BrokerQueueManager" value="QMTESTERS1"/>
   <PutVariable name="BrokerHTTPConnectorPort" value="8017"/>
-  <PutVariable name="DatabaseUsername" value="root"/>
-  <PutVariable name="DatabasePassword" value="root"/>
-  <PutVariable name="DatabaseHost" value="192.168.14.73"/> 
-  <PutVariable name="DatabasePort" value="3306"/>
-  <PutVariable name="DatabaseSID" value="task8_db"/>
   
 	<Libraries> 
-    <path>Lib/mysql-connector-java-8.0.29.jar</path> 
+    <path>Lib/mysql-connector-java-8.0.29.jar</path>
+    <path>Lib/java-jwt-3.18.1.jar</path>  
 	</Libraries> 
 
 	
@@ -30,6 +26,7 @@
 		
 		<Stub confFile="Stubs\Block 11\Block 11.xml" objName="Block11stub"/>
 		<Stub confFile="Stubs\Block 12\Block 12.xml" objName="Block12stub"/>
+		<Stub confFile="Stubs\Block 13\Block 13.xml" objName="Block13stub"/>
 		
   		<Security objName="SSL" sslKeyStore="Keys\keystore.jks" sslKeyStorePassword="qwerty123"
 		sslTrustStore="Keys\truststore.jks" sslTrustStorePassword="qwerty123" 
@@ -41,7 +38,8 @@
   		<RESTUrl objName="Block12ssl" url="https://localhost:9064" securityObjName="SSL"/>
   		<RESTUrl objName="Block12" url="http://localhost:9065"/>
   		
-<!--  		<Database type="mysql" host="#DatabaseHost#" port="#DatabasePort#" sid="#DatabaseSID#"   		userName="#DatabaseUsername#" userPass="#DatabasePassword#" objName="Block12base"/>-->
+  		<RESTUrl objName="Block13" url="http://localhost:9065"/>
+	
   		<Database dbName="task8_db" host="192.168.14.73" objName="Block12base" port="3306" type="mysql"  userName="root" userPass="root"/> 
     </Resources>
 	
